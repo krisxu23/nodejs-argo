@@ -1,966 +1,580 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CodeFlow | Visual Development Platform</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Roboto', sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: #f9fbfd;
-        }
-        
-        h1, h2, h3, h4 {
-            font-family: 'Poppins', sans-serif;
-            font-weight: 600;
-            line-height: 1.3;
-        }
-        
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        /* Header & Navigation */
-        header {
-            background-color: #fff;
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
-            position: fixed;
-            width: 100%;
-            z-index: 1000;
-        }
-        
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 0;
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-        }
-        
-        .logo-icon {
-            color: #4361ee;
-            font-size: 28px;
-            margin-right: 10px;
-        }
-        
-        .logo-text {
-            font-family: 'Poppins', sans-serif;
-            font-size: 24px;
-            font-weight: 700;
-            color: #333;
-        }
-        
-        .logo-text span {
-            color: #4361ee;
-        }
-        
-        .nav-links {
-            display: flex;
-            list-style: none;
-        }
-        
-        .nav-links li {
-            margin-left: 30px;
-        }
-        
-        .nav-links a {
-            text-decoration: none;
-            color: #555;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-        
-        .nav-links a:hover {
-            color: #4361ee;
-        }
-        
-        .cta-button {
-            background-color: #4361ee;
-            color: white;
-            border: none;
-            padding: 12px 28px;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.2s;
-        }
-        
-        .cta-button:hover {
-            background-color: #3a56d4;
-            transform: translateY(-2px);
-        }
-        
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 24px;
-            color: #333;
-            cursor: pointer;
-        }
-        
-        /* Hero Section */
-        .hero {
-            padding: 150px 0 100px;
-            background: linear-gradient(135deg, #f0f4ff 0%, #f9fbfd 100%);
-        }
-        
-        .hero-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        
-        .hero-text {
-            flex: 1;
-            padding-right: 40px;
-        }
-        
-        .hero-text h1 {
-            font-size: 48px;
-            margin-bottom: 20px;
-            color: #222;
-        }
-        
-        .hero-text h1 span {
-            color: #4361ee;
-        }
-        
-        .hero-text p {
-            font-size: 18px;
-            color: #666;
-            margin-bottom: 30px;
-            max-width: 600px;
-        }
-        
-        .hero-buttons {
-            display: flex;
-            gap: 15px;
-        }
-        
-        .secondary-button {
-            background-color: white;
-            color: #4361ee;
-            border: 2px solid #4361ee;
-            padding: 12px 28px;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .secondary-button:hover {
-            background-color: #f0f4ff;
-        }
-        
-        .hero-image {
-            flex: 1;
-            text-align: center;
-        }
-        
-        .hero-image img {
-            max-width: 100%;
-            border-radius: 10px;
-            box-shadow: 0 20px 40px rgba(67, 97, 238, 0.15);
-        }
-        
-        /* Features Section */
-        .section-title {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-        
-        .section-title h2 {
-            font-size: 36px;
-            color: #222;
-            margin-bottom: 15px;
-        }
-        
-        .section-title p {
-            color: #666;
-            max-width: 700px;
-            margin: 0 auto;
-        }
-        
-        .features {
-            padding: 100px 0;
-            background-color: white;
-        }
-        
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-        }
-        
-        .feature-card {
-            background: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-        }
-        
-        .feature-icon {
-            background-color: #eef2ff;
-            color: #4361ee;
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 20px;
-            font-size: 28px;
-        }
-        
-        .feature-card h3 {
-            font-size: 22px;
-            margin-bottom: 15px;
-        }
-        
-        .feature-card p {
-            color: #666;
-        }
-        
-        /* Benefits Section */
-        .benefits {
-            padding: 100px 0;
-            background-color: #f0f4ff;
-        }
-        
-        .benefits-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-        }
-        
-        .benefit-item {
-            text-align: center;
-            padding: 30px 20px;
-        }
-        
-        .benefit-icon {
-            color: #4361ee;
-            font-size: 40px;
-            margin-bottom: 20px;
-        }
-        
-        .benefit-item h3 {
-            font-size: 22px;
-            margin-bottom: 15px;
-        }
-        
-        .benefit-item p {
-            color: #666;
-        }
-        
-        /* Testimonials */
-        .testimonials {
-            padding: 100px 0;
-            background-color: white;
-        }
-        
-        .testimonial-slider {
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-        }
-        
-        .testimonial {
-            background: #f9fbfd;
-            padding: 40px;
-            border-radius: 10px;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-        }
-        
-        .testimonial-text {
-            font-size: 18px;
-            font-style: italic;
-            margin-bottom: 30px;
-            color: #555;
-        }
-        
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .author-avatar {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background-color: #ddd;
-            margin-right: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            color: #4361ee;
-            font-size: 24px;
-        }
-        
-        .author-info h4 {
-            font-size: 18px;
-            margin-bottom: 5px;
-        }
-        
-        .author-info p {
-            color: #777;
-            font-size: 14px;
-        }
-        
-        /* Pricing Section */
-        .pricing {
-            padding: 100px 0;
-            background-color: #f9fbfd;
-        }
-        
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-        }
-        
-        .pricing-card {
-            background: white;
-            border-radius: 10px;
-            padding: 40px 30px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
-            text-align: center;
-            transition: transform 0.3s;
-        }
-        
-        .pricing-card.featured {
-            border-top: 5px solid #4361ee;
-            transform: scale(1.05);
-            position: relative;
-        }
-        
-        .featured-badge {
-            position: absolute;
-            top: -12px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #4361ee;
-            color: white;
-            padding: 5px 20px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: 600;
-        }
-        
-        .pricing-card:hover {
-            transform: translateY(-10px);
-        }
-        
-        .pricing-card.featured:hover {
-            transform: scale(1.05) translateY(-10px);
-        }
-        
-        .plan-name {
-            font-size: 24px;
-            margin-bottom: 15px;
-            color: #333;
-        }
-        
-        .plan-price {
-            font-size: 48px;
-            font-weight: 700;
-            color: #4361ee;
-            margin-bottom: 20px;
-        }
-        
-        .plan-price span {
-            font-size: 16px;
-            color: #777;
-        }
-        
-        .plan-features {
-            list-style: none;
-            margin-bottom: 30px;
-        }
-        
-        .plan-features li {
-            padding: 10px 0;
-            border-bottom: 1px solid #eee;
-            color: #555;
-        }
-        
-        .plan-features li:last-child {
-            border-bottom: none;
-        }
-        
-        /* CTA Section */
-        .cta-section {
-            padding: 100px 0;
-            background: linear-gradient(135deg, #4361ee 0%, #3a56d4 100%);
-            text-align: center;
-            color: white;
-        }
-        
-        .cta-section h2 {
-            font-size: 36px;
-            margin-bottom: 20px;
-        }
-        
-        .cta-section p {
-            font-size: 18px;
-            max-width: 700px;
-            margin: 0 auto 30px;
-            opacity: 0.9;
-        }
-        
-        .cta-section .cta-button {
-            background-color: white;
-            color: #4361ee;
-            font-size: 16px;
-            padding: 15px 40px;
-        }
-        
-        .cta-section .cta-button:hover {
-            background-color: #f0f4ff;
-        }
-        
-        /* Footer */
-        footer {
-            background-color: #222;
-            color: #ccc;
-            padding: 70px 0 20px;
-        }
-        
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 40px;
-            margin-bottom: 50px;
-        }
-        
-        .footer-column h3 {
-            font-size: 20px;
-            color: white;
-            margin-bottom: 25px;
-        }
-        
-        .footer-links {
-            list-style: none;
-        }
-        
-        .footer-links li {
-            margin-bottom: 12px;
-        }
-        
-        .footer-links a {
-            color: #aaa;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        
-        .footer-links a:hover {
-            color: #4361ee;
-        }
-        
-        .copyright {
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid #444;
-            font-size: 14px;
-            color: #888;
-        }
-        
-        /* Responsive Design */
-        @media (max-width: 992px) {
-            .hero-content {
-                flex-direction: column;
-            }
-            
-            .hero-text {
-                padding-right: 0;
-                margin-bottom: 50px;
-                text-align: center;
-            }
-            
-            .hero-text p {
-                margin: 0 auto 30px;
-            }
-            
-            .pricing-card.featured {
-                transform: none;
-            }
-            
-            .pricing-card.featured:hover {
-                transform: translateY(-10px);
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-            
-            .mobile-menu-btn {
-                display: block;
-            }
-            
-            .hero-text h1 {
-                font-size: 36px;
-            }
-            
-            .section-title h2 {
-                font-size: 30px;
-            }
-            
-            .hero-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .hero-buttons button {
-                width: 100%;
-                max-width: 300px;
-            }
-        }
-        
-        @media (max-width: 576px) {
-            .hero {
-                padding: 130px 0 80px;
-            }
-            
-            .features, .benefits, .testimonials, .pricing, .cta-section {
-                padding: 70px 0;
-            }
-            
-            .feature-card, .testimonial {
-                padding: 25px;
-            }
-            
-            .plan-price {
-                font-size: 36px;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>墨舟记 · 陈墨的个人博客</title>
+<meta name="description" content="陈墨的个人博客:路由器折腾、OpenWrt 编译、AI 工具链与前端学习笔记。">
+<style>
+  :root{
+    --bg:#f7f6f2;
+    --surface:#ffffff;
+    --surface-2:#f0efe9;
+    --ink:#1d1c19;
+    --muted:#6e6a61;
+    --border:#e5e2d9;
+    --accent:#4361ee;
+    --accent-soft:#e9edff;
+    --accent-ink:#2d3fb3;
+    --radius:12px;
+    --serif:Georgia,"Times New Roman","Songti SC",serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    --shadow:0 1px 2px rgba(29,28,25,.04),0 8px 24px rgba(29,28,25,.06);
+    --maxw:1120px;
+  }
+  html[data-theme="dark"]{
+    --bg:#141413;
+    --surface:#1c1c1a;
+    --surface-2:#232320;
+    --ink:#ecebe4;
+    --muted:#9a968c;
+    --border:#2e2d29;
+    --accent:#6d84ff;
+    --accent-soft:#232a4d;
+    --accent-ink:#a5b4ff;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.35);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:var(--sans);
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+    transition:background .3s,color .3s;
+  }
+  ::selection{background:var(--accent);color:#fff}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+
+  /* ============ 顶栏 ============ */
+  .topbar{
+    position:sticky;top:0;z-index:100;
+    background:color-mix(in srgb,var(--bg) 82%,transparent);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border);
+  }
+  .topbar-in{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:19px}
+  .brand-mark{
+    width:32px;height:32px;border-radius:9px;flex:none;
+    display:grid;place-items:center;
+    background:var(--accent);color:#fff;font-size:16px;
+  }
+  .brand small{display:block;font-size:11px;font-weight:500;color:var(--muted);line-height:1}
+  .nav{display:flex;align-items:center;gap:4px}
+  .nav a{
+    padding:7px 14px;border-radius:8px;font-size:14.5px;color:var(--muted);
+    transition:color .2s,background .2s;
+  }
+  .nav a:hover{color:var(--ink);background:var(--surface-2)}
+  .nav a.on{color:var(--accent-ink);font-weight:600}
+  .top-actions{display:flex;align-items:center;gap:6px}
+  .icon-btn{
+    width:38px;height:38px;border-radius:9px;border:1px solid var(--border);
+    background:var(--surface);color:var(--ink);cursor:pointer;
+    display:grid;place-items:center;font-size:15px;
+    transition:border-color .2s,color .2s,transform .15s;
+  }
+  .icon-btn:hover{border-color:var(--accent);color:var(--accent)}
+  .icon-btn:active{transform:scale(.94)}
+  .burger{display:none}
+  .mob-menu{
+    display:none;border-top:1px solid var(--border);background:var(--surface);
+    padding:10px 24px 18px;flex-direction:column;gap:2px;
+  }
+  .mob-menu a{padding:11px 10px;border-radius:8px;color:var(--muted);font-size:15px}
+  .mob-menu a:hover{background:var(--surface-2);color:var(--ink)}
+  .mob-menu.open{display:flex}
+
+  /* ============ Hero ============ */
+  .hero{padding:64px 0 40px}
+  .hero-in{display:flex;align-items:flex-end;justify-content:space-between;gap:40px}
+  .hero h1{
+    font-size:34px;line-height:1.3;font-weight:700;letter-spacing:.5px;
+    text-wrap:pretty;margin-bottom:14px;
+  }
+  .hero h1 .en{font-family:var(--serif);font-style:italic;font-weight:500}
+  .hero p{color:var(--muted);max-width:34em;font-size:16px;text-wrap:pretty}
+  .hero-stats{display:flex;gap:26px;flex:none;padding-bottom:6px}
+  .hero-stats b{display:block;font-size:26px;font-family:var(--serif);color:var(--accent-ink)}
+  .hero-stats span{font-size:13px;color:var(--muted)}
+
+  /* ============ 主体布局 ============ */
+  .layout{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:44px;padding:8px 0 72px;align-items:start}
+
+  /* ============ 文章列表 ============ */
+  .toolbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:22px}
+  .toolbar h2{font-size:20px;font-weight:700}
+  .toolbar h2 small{color:var(--muted);font-weight:500;font-size:14px;margin-left:8px}
+  .search{
+    position:relative;width:230px;
+  }
+  .search svg{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--muted)}
+  .search input{
+    width:100%;height:38px;border-radius:9px;border:1px solid var(--border);
+    background:var(--surface);color:var(--ink);font-size:14px;
+    padding:0 13px 0 34px;outline:none;font-family:inherit;
+    transition:border-color .2s;
+  }
+  .search input:focus{border-color:var(--accent)}
+  .search input::placeholder{color:var(--muted)}
+
+  .posts{display:flex;flex-direction:column;gap:18px}
+  .post{
+    background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+    padding:24px 26px;position:relative;
+    box-shadow:var(--shadow);
+    transition:transform .22s,box-shadow .22s,border-color .22s,opacity .25s;
+    display:flex;flex-direction:column;gap:10px;
+  }
+  .post:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(29,28,25,.1);border-color:color-mix(in srgb,var(--accent) 45%,var(--border))}
+  .post.hide{display:none}
+  .post-meta{display:flex;align-items:center;gap:10px;font-size:12.5px;color:var(--muted);flex-wrap:wrap}
+  .post-meta time{display:inline-flex;align-items:center;gap:5px}
+  .post .tag{
+    font-size:12px;font-weight:600;padding:3px 10px;border-radius:999px;
+    background:var(--accent-soft);color:var(--accent-ink);cursor:pointer;
+    border:none;font-family:inherit;transition:transform .15s;
+  }
+  .post .tag:hover{transform:scale(1.06)}
+  .post .pin{
+    position:absolute;top:-10px;left:26px;font-size:11.5px;font-weight:700;
+    background:var(--accent);color:#fff;padding:3px 12px;border-radius:999px;
+    letter-spacing:1px;
+  }
+  .post h3{font-size:19.5px;line-height:1.45;font-weight:700;text-wrap:pretty}
+  .post h3 a{transition:color .2s}
+  .post h3 a:hover{color:var(--accent)}
+  .post p.excerpt{color:var(--muted);font-size:14.5px;text-wrap:pretty}
+  .post-foot{display:flex;align-items:center;justify-content:space-between;margin-top:2px}
+  .post-foot .read{font-size:12.5px;color:var(--muted);display:inline-flex;align-items:center;gap:5px}
+  .post-foot a.more{
+    font-size:13.5px;font-weight:600;color:var(--accent-ink);
+    display:inline-flex;align-items:center;gap:6px;transition:gap .2s;
+  }
+  .post-foot a.more:hover{gap:10px}
+  .empty{display:none;text-align:center;color:var(--muted);padding:60px 0;border:1px dashed var(--border);border-radius:var(--radius)}
+  .empty.show{display:block}
+
+  /* ============ 侧栏 ============ */
+  .side{display:flex;flex-direction:column;gap:22px;position:sticky;top:84px}
+  .card{
+    background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+    padding:22px;box-shadow:var(--shadow);
+  }
+  .card h3{
+    font-size:13px;font-weight:700;letter-spacing:1.5px;color:var(--muted);
+    text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:8px;
+  }
+  .card h3::after{content:"";flex:1;height:1px;background:var(--border)}
+  .about-me{display:flex;gap:14px;align-items:flex-start}
+  .avatar{
+    width:52px;height:52px;border-radius:50%;flex:none;
+    background:linear-gradient(135deg,var(--accent),var(--accent-ink));
+    color:#fff;display:grid;place-items:center;font-size:22px;font-weight:700;
+    font-family:var(--serif);
+  }
+  .about-me .name{font-weight:700;font-size:15.5px}
+  .about-me .bio{font-size:13px;color:var(--muted);margin-top:3px}
+  .socials{display:flex;gap:8px;margin-top:14px}
+  .socials a{
+    width:34px;height:34px;border-radius:8px;border:1px solid var(--border);
+    display:grid;place-items:center;color:var(--muted);font-size:14px;
+    transition:color .2s,border-color .2s,transform .15s;
+  }
+  .socials a:hover{color:var(--accent);border-color:var(--accent);transform:translateY(-2px)}
+  .tags{display:flex;flex-wrap:wrap;gap:8px}
+  .tags button{
+    font-size:13px;padding:6px 13px;border-radius:999px;
+    border:1px solid var(--border);background:var(--surface);color:var(--muted);
+    cursor:pointer;font-family:inherit;transition:all .18s;
+  }
+  .tags button:hover{border-color:var(--accent);color:var(--accent)}
+  .tags button.active{background:var(--accent);border-color:var(--accent);color:#fff}
+  .tags button i{font-style:normal;opacity:.65;font-size:11.5px;margin-left:4px}
+  .recent li{list-style:none;padding:9px 0;border-bottom:1px dashed var(--border)}
+  .recent{margin:0}
+  .recent li:last-child{border-bottom:none;padding-bottom:0}
+  .recent li:first-child{padding-top:0}
+  .recent a{font-size:14px;line-height:1.5;display:block;transition:color .2s}
+  .recent a:hover{color:var(--accent)}
+  .recent time{display:block;font-size:12px;color:var(--muted);margin-top:2px}
+  .subscribe form{display:flex;gap:8px}
+  .subscribe input{
+    flex:1;min-width:0;height:38px;border:1px solid var(--border);border-radius:9px;
+    background:var(--bg);color:var(--ink);padding:0 12px;font-size:13.5px;
+    font-family:inherit;outline:none;transition:border-color .2s;
+  }
+  .subscribe input:focus{border-color:var(--accent)}
+  .subscribe button{
+    height:38px;flex:none;border:none;border-radius:9px;background:var(--accent);
+    color:#fff;font-weight:600;font-size:13.5px;padding:0 16px;cursor:pointer;
+    font-family:inherit;transition:background .2s,transform .15s;
+  }
+  .subscribe button:hover{background:var(--accent-ink);transform:translateY(-1px)}
+  .sub-ok{display:none;font-size:13px;color:var(--accent-ink);margin-top:8px}
+  .sub-ok.show{display:block}
+
+  /* ============ 页脚 ============ */
+  footer{border-top:1px solid var(--border);padding:40px 0 28px;color:var(--muted);font-size:13.5px}
+  .foot-in{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center}
+  .foot-links{display:flex;gap:18px}
+  .foot-links a{color:var(--muted);transition:color .2s}
+  .foot-links a:hover{color:var(--accent)}
+  .top-link{
+    position:fixed;right:26px;bottom:26px;width:42px;height:42px;border-radius:12px;
+    background:var(--surface);border:1px solid var(--border);color:var(--muted);
+    display:grid;place-items:center;cursor:pointer;font-size:16px;
+    opacity:0;pointer-events:none;transition:opacity .25s,transform .2s,color .2s;
+    box-shadow:var(--shadow);
+  }
+  .top-link.show{opacity:1;pointer-events:auto}
+  .top-link:hover{color:var(--accent);transform:translateY(-3px)}
+
+  /* ============ 响应式 ============ */
+  @media (max-width:980px){
+    .layout{grid-template-columns:1fr;gap:36px}
+    .side{position:static}
+    .hero-stats{display:none}
+  }
+  @media (max-width:760px){
+    .nav,.top-actions .searchbtn{display:none}
+    .burger{display:grid}
+    .hero{padding:40px 0 26px}
+    .hero h1{font-size:27px}
+    .toolbar{flex-direction:column;align-items:stretch}
+    .search{width:100%}
+    .post{padding:20px}
+    .post h3{font-size:17px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none!important;animation:none!important;scroll-behavior:auto!important}
+  }
+</style>
 </head>
 <body>
-    <!-- Header & Navigation -->
-    <header>
-        <div class="container">
-            <nav>
-                <div class="logo">
-                    <div class="logo-icon"><i class="fas fa-bezier-curve"></i></div>
-                    <div class="logo-text">Code<span>Flow</span></div>
-                </div>
-                
-                <ul class="nav-links">
-                    <li><a href="#features">Features</a></li>
-                    <li><a href="#benefits">Benefits</a></li>
-                    <li><a href="#testimonials">Testimonials</a></li>
-                    <li><a href="#pricing">Pricing</a></li>
-                    <li><a href="#">Resources</a></li>
-                </ul>
-                
-                <button class="cta-button">Start Free Trial</button>
-                <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
-            </nav>
-        </div>
-    </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-text">
-                    <h1>Build Apps Faster With <span>Visual Development</span></h1>
-                    <p>CodeFlow empowers teams to create enterprise-grade applications with minimal coding. Drag, drop, and connect components to build powerful web and mobile apps in record time.</p>
-                    <div class="hero-buttons">
-                        <button class="cta-button">Start Building Free</button>
-                        <button class="secondary-button">Watch Demo</button>
-                    </div>
-                </div>
-                <div class="hero-image">
-                    <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="CodeFlow Platform Interface">
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- ======== 顶栏 ======== -->
+<header class="topbar">
+  <div class="wrap topbar-in">
+    <a class="brand" href="#">
+      <span class="brand-mark">墨</span>
+      墨<span style="color:var(--accent)">舟</span><small></small>
+    </a>
+    <nav class="nav" aria-label="主导航">
+      <a href="#" class="on">首页</a>
+      <a href="#posts">归档</a>
+      <a href="#">标签</a>
+      <a href="#">关于</a>
+    </nav>
+    <div class="top-actions">
+      <button class="icon-btn" id="themeBtn" aria-label="切换深色模式" title="切换深色模式"></button>
+      <button class="icon-btn burger" id="burgerBtn" aria-label="打开菜单">☰</button>
+    </div>
+  </div>
+  <nav class="mob-menu" id="mobMenu" aria-label="移动端导航">
+    <a href="#" class="on">首页</a>
+    <a href="#posts">归档</a>
+    <a href="#">标签</a>
+    <a href="#">关于</a>
+  </nav>
+</header>
 
-    <!-- Features Section -->
-    <section class="features" id="features">
-        <div class="container">
-            <div class="section-title">
-                <h2>Powerful Features for Rapid Development</h2>
-                <p>CodeFlow provides all the tools you need to build, deploy, and scale applications without writing extensive code.</p>
-            </div>
-            
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-th-large"></i>
-                    </div>
-                    <h3>Visual Builder</h3>
-                    <p>Drag and drop UI components to design responsive interfaces. Connect data sources with simple point-and-click actions.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-database"></i>
-                    </div>
-                    <h3>Database Integration</h3>
-                    <p>Connect to any data source with built-in connectors. Automatically generate CRUD operations without writing SQL.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-mobile-alt"></i>
-                    </div>
-                    <h3>Cross-Platform</h3>
-                    <p>Build once, deploy everywhere. Generate applications for web, iOS, and Android from a single visual design.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-code"></i>
-                    </div>
-                    <h3>Extensible with Code</h3>
-                    <p>Add custom functionality with JavaScript when needed. Our platform doesn't limit your creativity or complexity.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <h3>Enterprise Security</h3>
-                    <p>Built-in authentication, authorization, and data encryption. SOC2 compliant with enterprise-grade security features.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-rocket"></i>
-                    </div>
-                    <h3>One-Click Deployment</h3>
-                    <p>Deploy to cloud or on-premises with a single click. Automatic scaling and monitoring included.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- ======== Hero ======== -->
+<section class="hero">
+  <div class="wrap hero-in">
+    <div>
+      <h1>你好，我是陈墨。<span class="en">A chronicle of routers, code &amp; machines.</span></h1>
+      <p>白天编译固件，夜里写前端。这里是我的个人博客，记录路由器折腾、OpenWrt 云编译、AI 工具链和一些不成体系的思考。欢迎翻翻归档，留言随缘。</p>
+    </div>
+    <div class="hero-stats">
+      <div><b>128</b><span>篇文章</span></div>
+      <div><b>37</b><span>枚标签</span></div>
+      <div><b>6</b><span>年码龄</span></div>
+    </div>
+  </div>
+</section>
 
-    <!-- Benefits Section -->
-    <section class="benefits" id="benefits">
-        <div class="container">
-            <div class="section-title">
-                <h2>Why Choose CodeFlow?</h2>
-                <p>Join thousands of companies accelerating their digital transformation with low-code development.</p>
-            </div>
-            
-            <div class="benefits-grid">
-                <div class="benefit-item">
-                    <div class="benefit-icon">
-                        <i class="fas fa-bolt"></i>
-                    </div>
-                    <h3>10x Faster Development</h3>
-                    <p>Build applications in days instead of months with visual development tools.</p>
-                </div>
-                
-                <div class="benefit-item">
-                    <div class="benefit-icon">
-                        <i class="fas fa-money-bill-wave"></i>
-                    </div>
-                    <h3>Reduce Costs by 70%</h3>
-                    <p>Lower development and maintenance costs with fewer resources required.</p>
-                </div>
-                
-                <div class="benefit-item">
-                    <div class="benefit-icon">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <h3>Citizen Developers</h3>
-                    <p>Enable business users to build solutions with minimal IT assistance.</p>
-                </div>
-                
-                <div class="benefit-item">
-                    <div class="benefit-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <h3>Scale Effortlessly</h3>
-                    <p>From prototype to enterprise-scale applications with the same platform.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- ======== 主体 ======== -->
+<main class="wrap layout">
 
-    <!-- Testimonials -->
-    <section class="testimonials" id="testimonials">
-        <div class="container">
-            <div class="section-title">
-                <h2>Trusted by Industry Leaders</h2>
-                <p>See what our customers have to say about their experience with CodeFlow.</p>
-            </div>
-            
-            <div class="testimonial-slider">
-                <div class="testimonial">
-                    <div class="testimonial-text">
-                        "CodeFlow transformed how we deliver solutions to our business units. What used to take 6 months now takes 3 weeks. Our development team can focus on complex problems while business teams build their own solutions."
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">SC</div>
-                        <div class="author-info">
-                            <h4>Sarah Chen</h4>
-                            <p>CTO, TechGrowth Inc.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+  <!-- 文章区 -->
+  <section id="posts" aria-label="文章列表">
+    <div class="toolbar">
+      <h2>最新文章<span id="postCount"></span></h2>
+      <label class="search">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.8-3.8"/></svg>
+        <input id="searchInput" type="search" placeholder="搜索文章…" aria-label="搜索文章">
+      </label>
+    </div>
 
-    <!-- Pricing Section -->
-    <section class="pricing" id="pricing">
-        <div class="container">
-            <div class="section-title">
-                <h2>Simple, Transparent Pricing</h2>
-                <p>Choose the plan that fits your needs. All plans include core features with no hidden fees.</p>
-            </div>
-            
-            <div class="pricing-grid">
-                <div class="pricing-card">
-                    <h3 class="plan-name">Starter</h3>
-                    <div class="plan-price">$29<span>/month</span></div>
-                    <ul class="plan-features">
-                        <li>Up to 5 users</li>
-                        <li>10 GB storage</li>
-                        <li>Basic components</li>
-                        <li>Community support</li>
-                        <li>1 production app</li>
-                    </ul>
-                    <button class="secondary-button">Get Started</button>
-                </div>
-                
-                <div class="pricing-card featured">
-                    <div class="featured-badge">Most Popular</div>
-                    <h3 class="plan-name">Professional</h3>
-                    <div class="plan-price">$89<span>/month</span></div>
-                    <ul class="plan-features">
-                        <li>Up to 25 users</li>
-                        <li>100 GB storage</li>
-                        <li>All components</li>
-                        <li>Priority support</li>
-                        <li>10 production apps</li>
-                        <li>Custom branding</li>
-                    </ul>
-                    <button class="cta-button">Try Free for 14 Days</button>
-                </div>
-                
-                <div class="pricing-card">
-                    <h3 class="plan-name">Enterprise</h3>
-                    <div class="plan-price">Custom</div>
-                    <ul class="plan-features">
-                        <li>Unlimited users</li>
-                        <li>Unlimited storage</li>
-                        <li>All features included</li>
-                        <li>24/7 dedicated support</li>
-                        <li>Unlimited apps</li>
-                        <li>On-premises option</li>
-                    </ul>
-                    <button class="secondary-button">Contact Sales</button>
-                </div>
-            </div>
-        </div>
-    </section>
+    <div class="posts" id="postList">
 
-    <!-- CTA Section -->
-    <section class="cta-section">
-        <div class="container">
-            <h2>Start Building Today</h2>
-            <p>Join over 10,000 companies that use CodeFlow to accelerate their application development. No credit card required for the free trial.</p>
-            <button class="cta-button">Get Started for Free</button>
+      <article class="post" data-tags="路由器,OpenWrt" data-title="京东云亚瑟 AX1800 硬改 1GB 内存" data-date="2026-08-02">
+        <span class="pin">置顶</span>
+        <div class="post-meta">
+          <time datetime="2026-08-02">📅 2026-08-02</time>
+          <button class="tag" data-tag="路由器">路由器</button>
+          <button class="tag" data-tag="OpenWrt">OpenWrt</button>
         </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <div class="logo">
-                        <div class="logo-icon"><i class="fas fa-bezier-curve"></i></div>
-                        <div class="logo-text">Code<span>Flow</span></div>
-                    </div>
-                    <p style="margin-top: 20px; color: #aaa;">The leading visual development platform for building enterprise applications with minimal coding.</p>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>Product</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Features</a></li>
-                        <li><a href="#">Pricing</a></li>
-                        <li><a href="#">Use Cases</a></li>
-                        <li><a href="#">Integrations</a></li>
-                        <li><a href="#">Roadmap</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>Resources</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Documentation</a></li>
-                        <li><a href="#">Tutorials</a></li>
-                        <li><a href="#">Blog</a></li>
-                        <li><a href="#">Community</a></li>
-                        <li><a href="#">Support</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>Company</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Careers</a></li>
-                        <li><a href="#">Contact</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms of Service</a></li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="copyright">
-                <p>&copy; 2023 CodeFlow. All rights reserved.</p>
-            </div>
+        <h3><a href="#">京东云亚瑟 AX1800 硬改 1GB 内存:从 BGA 拆焊到固件适配</a></h3>
+        <p class="excerpt">收了两台吃灰的京东云亚瑟,先把 512MB 运存换成 1GB。记录 BGA 拆焊、pop 验证、以及把 kenzok8 插件全家桶塞进 1GB 内存后 CPU 占用率从 40% 掉到 8% 的过程。</p>
+        <div class="post-foot">
+          <span class="read">☕ 12 分钟</span>
+          <a class="more" href="#">阅读全文 →</a>
         </div>
-    </footer>
+      </article>
 
-    <script>
-        // Mobile menu toggle
-        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
-            const navLinks = document.querySelector('.nav-links');
-            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
-            
-            // Adjust for mobile
-            if (window.innerWidth <= 768) {
-                if (navLinks.style.display === 'flex') {
-                    navLinks.style.flexDirection = 'column';
-                    navLinks.style.position = 'absolute';
-                    navLinks.style.top = '80px';
-                    navLinks.style.left = '0';
-                    navLinks.style.width = '100%';
-                    navLinks.style.backgroundColor = 'white';
-                    navLinks.style.padding = '20px';
-                    navLinks.style.boxShadow = '0 10px 20px rgba(0,0,0,0.1)';
-                    
-                    const navItems = document.querySelectorAll('.nav-links li');
-                    navItems.forEach(item => {
-                        item.style.margin = '10px 0';
-                    });
-                }
-            }
-        });
-        
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if(targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if(targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                    
-                    // Close mobile menu if open
-                    if(window.innerWidth <= 768) {
-                        document.querySelector('.nav-links').style.display = 'none';
-                    }
-                }
-            });
-        });
-        
-        // Simple testimonial slider
-        const testimonials = [
-            {
-                text: "CodeFlow transformed how we deliver solutions to our business units. What used to take 6 months now takes 3 weeks. Our development team can focus on complex problems while business teams build their own solutions.",
-                name: "Sarah Chen",
-                position: "CTO, TechGrowth Inc.",
-                initials: "SC"
-            },
-            {
-                text: "We reduced our app development time by 80% using CodeFlow. The visual interface made it easy for our analysts to build data dashboards without waiting for IT resources.",
-                name: "Marcus Johnson",
-                position: "Director of Operations, DataCorp",
-                initials: "MJ"
-            },
-            {
-                text: "As a non-technical founder, CodeFlow allowed me to build our MVP in just 2 months. I could test ideas quickly and iterate based on user feedback without deep coding knowledge.",
-                name: "Lisa Wang",
-                position: "Founder, StartupLabs",
-                initials: "LW"
-            }
-        ];
-        
-        let currentTestimonial = 0;
-        const testimonialElement = document.querySelector('.testimonial');
-        
-        function rotateTestimonial() {
-            currentTestimonial = (currentTestimonial + 1) % testimonials.length;
-            updateTestimonial();
-        }
-        
-        function updateTestimonial() {
-            const testimonial = testimonials[currentTestimonial];
-            testimonialElement.innerHTML = `
-                <div class="testimonial-text">"${testimonial.text}"</div>
-                <div class="testimonial-author">
-                    <div class="author-avatar">${testimonial.initials}</div>
-                    <div class="author-info">
-                        <h4>${testimonial.name}</h4>
-                        <p>${testimonial.position}</p>
-                    </div>
-                </div>
-            `;
-        }
-        
-        // Auto-rotate testimonials every 5 seconds
-        setInterval(rotateTestimonial, 5000);
-        
-        // CTA button interactions
-        document.querySelectorAll('.cta-button').forEach(button => {
-            button.addEventListener('click', function() {
-                alert('Thank you for your interest in CodeFlow! You would be redirected to the signup page in a real implementation.');
-            });
-        });
-        
-        // Pricing card interactions
-        document.querySelectorAll('.pricing-card button').forEach(button => {
-            button.addEventListener('click', function() {
-                const planName = this.closest('.pricing-card').querySelector('.plan-name').textContent;
-                alert(`You selected the ${planName} plan. In a real implementation, you would be redirected to the checkout process.`);
-            });
-        });
-    </script>
+      <article class="post" data-tags="OpenWrt,CI/CD" data-title="GitHub Actions 云编译流水线" data-date="2026-07-30">
+        <div class="post-meta">
+          <time datetime="2026-07-30">📅 2026-07-30</time>
+          <button class="tag" data-tag="OpenWrt">OpenWrt</button>
+          <button class="tag" data-tag="CI/CD">CI/CD</button>
+        </div>
+        <h3><a href="#">从零搭建 GitHub Actions 云编译流水线:VIKINGYFY 工作流适配记</a></h3>
+        <p class="excerpt">本地编译一次 ImmortalWrt 要两小时,云上十分钟。这篇文章把我适配 VIKINGYFY 官方工作流踩的坑都摊开讲:缓存命中、dl 目录持久化、还有那个让固件构建失败的时区 bug。</p>
+        <div class="post-foot">
+          <span class="read">☕ 15 分钟</span>
+          <a class="more" href="#">阅读全文 →</a>
+        </div>
+      </article>
+
+      <article class="post" data-tags="AI,工具链" data-title="本地大模型与编程代理" data-date="2026-07-12">
+        <div class="post-meta">
+          <time datetime="2026-07-12">📅 2026-07-12</time>
+          <button class="tag" data-tag="AI">AI</button>
+          <button class="tag" data-tag="工具链">工具链</button>
+        </div>
+        <h3><a href="#">当 SGLang 拒绝工具调用:我的本地编程代理调试手记</a></h3>
+        <p class="excerpt">`tools[i].function.name` 400 错误背后,是一整条"模型-网关-远端仓库"的链路问题。从 codex++ 到 9router,最后我把整套配置回滚……这篇聊聊本地模型能干什么、不能干什么。</p>
+        <div class="post-foot">
+          <span class="read">☕ 9 分钟</span>
+          <a class="more" href="#">阅读全文 →</a>
+        </div>
+      </article>
+
+      <article class="post" data-tags="前端" data-title="CSS 编码规范入门" data-date="2026-06-28">
+        <div class="post-meta">
+          <time datetime="2026-06-28">📅 2026-06-28</time>
+          <button class="tag" data-tag="前端">前端</button>
+        </div>
+        <h3><a href="#">从「零依赖」开始的 CSS 编码规范入门</a></h3>
+        <p class="excerpt">设计一个纯 CSS+内联 SVG 的深色模式切换按钮,顺便聊聊 system color 断点、`color-mix()` 和 `text-wrap: pretty` 这三个现代 CSS 特性怎么组合使用。</p>
+        <div class="post-foot">
+          <span class="read">☕ 6 分钟</span>
+          <a class="more" href="#">阅读全文 →</a>
+        </div>
+      </article>
+
+      <article class="post" data-tags="运维,NAS" data-date="2026-06-10">
+        <div class="post-meta">
+          <time datetime="2026-06-10">📅 2026-06-10</time>
+          <button class="tag" data-tag="运维">运维</button>
+          <button class="tag" data-tag="NAS">NAS</button>
+        </div>
+        <h3><a href="#">软路由 All-in-One:一台机器搞掂上网、NAS 与家庭影音</a></h3>
+        <p class="excerpt">把主路由、旁路由、NAS 和 PT 下载塞进同一台软路由会怎样?这篇是我的三年实践:磁盘 IO 争用、热插拔坑、以及为什么我最后还是拆成了「能出bug 就出 bug」。</p>
+        <div class="post-foot">
+          <span class="read">☕ 18 分钟</span>
+          <a class="more" href="#">阅读全文 →</a>
+        </div>
+      </article>
+
+      <article class="post" data-tags="随笔" data-date="2026-05-21">
+        <div class="post-meta">
+          <time datetime="2026-05-21">📅 2026-05-21</time>
+          <button class="tag" data-tag="随笔">随笔</button>
+        </div>
+        <h3><a href="#">为什么我还在维护一个「个人站」</a></h3>
+        <p class="excerpt">公众号、知乎、小红书都在抢夺注意力,我却花了三个周末把一个静态博客部署到自己服务器上。聊一场「数据所有权」和「写作节奏」的思考。</p>
+        <div class="post-foot">
+          <span class="read">☕ 5 分钟</span>
+          <a class="more" href="#">阅读全文 →</a>
+        </div>
+      </article>
+
+      <article class="post" data-tags="读书" data-date="2026-04-20">
+        <div class="post-meta">
+          <time datetime="2026-04-20">📅 2026-04-20</time>
+          <button class="tag" data-tag="读书">读书</button>
+        </div>
+        <h3><a href="#">《固化与涌现》读书笔记:复杂系统如何发生在路由器上</a></h3>
+        <p class="excerpt">一个全 512MB 的内存不能完成的事,一群节点却可以。从「涌现」的角度看分布式系统、看 OpenWrt 插件生态,也能看一个博客的诞生。</p>
+        <div class="post-foot">
+          <span class="read">☕ 8 分钟</span>
+          <a class="more" href="#">阅读全文 →</a>
+        </div>
+      </article>
+
+    </div>
+    <p class="empty" id="emptyState">没有匹配的文章,换个关键词试试 🤔</p>
+  </section>
+
+  <!-- 侧栏 -->
+  <aside class="side">
+
+    <div class="card">
+      <h3>关于我</h3>
+      <div class="about-me">
+        <div class="avatar">陈</div>
+        <div>
+          <div class="nm">陈墨</div>
+          <div class="bio">路由器玩家 / OpenWrt 云编译 / 前端学习者。白天写代码,晚上拆机。</div>
+        </div>
+      </div>
+      <div class="socials">
+        <a href="#" aria-label="GitHub" title="GitHub">GitHub</a>
+        <a href="#" aria-label="RSS 订阅" title="RSS">RSS</a>
+        <a href="#" aria-label="邮箱" title="Email">邮件</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>标签</h3>
+      <div class="tags" id="tagCloud">
+        <button data-tag="all" class="active">全部 <i>7</i></button>
+        <button data-tag="OpenWrt">OpenWrt <i>9</i></button>
+        <button data-tag="路由器">路由器 <i>7</i></button>
+        <button data-tag="AI">AI <i>6</i></button>
+        <button data-tag="前端">前端 <i>5</i></button>
+        <button data-tag="运维">运维 <i>4</i></button>
+        <button data-tag="CI/CD">CI/CD <i>3</i></button>
+        <button data-tag="读书">读书 <i>2</i></button>
+        <button data-tag="随笔">随笔 <i>2</i></button>
+        <button data-tag="NAS">NAS <i>2</i></button>
+        <button data-tag="工具链">工具链 <i>1</i></button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>最近更新</h3>
+      <ul class="recent">
+        <li><a href="#">京东云亚瑟 AX1800 硬改 1GB 内存</a><time>2026-08-02</time></li>
+        <li><a href="#">GitHub Actions 云编译流水线适配记</a><time>2026-07-30</time></li>
+        <li><a href="#">本地编程代理调试手记</a><time>2026-07-12</time></li>
+        <li><a href="#">零依赖深色模式按钮</a><time>2026-06-28</time></li>
+      </ul>
+    </div>
+
+    <div class="card subscribe">
+      <h3>订阅</h3>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:12px">新文章发布提醒,一周一封,不打扰。</p>
+      <form id="subForm">
+        <input type="email" placeholder="you@example.com" required aria-label="邮箱地址">
+        <button type="submit">订阅</button>
+      </form>
+      <p class="sub-note" id="subNote">✔ 已加入订阅,欢迎!</p>
+    </div>
+
+  </aside>
+</main>
+
+<!-- ======== 页脚 ======== -->
+<footer>
+  <div class="wrap foot-in">
+    <p>© 2019–2026 陈墨 · CC BY-NC-SA 4.0</p>
+    <div class="foot-links">
+      <a href="#">rss</a>
+      <a href="#">GitHub</a>
+      <a href="#">关于</a>
+      <a href="#">友链</a>
+    </div>
+  </div>
+</footer>
+
+<button class="top-link" id="topLink" aria-label="回到顶部">↑</button>
+
+<script>
+(function(){
+  'use strict';
+
+  /* ---- 深色模式 ---- */
+  var root=document.documentElement;
+  var themeBtn=document.getElementById('themeBtn');
+  var saved=null;
+  try{saved=localStorage.getItem('blogTheme');}catch(e){}
+  var theme=saved||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+  function apply(t){root.setAttribute('data-theme',t);themeBtn.innerHTML=t==='dark'
+    ?'<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="4.4"/><path d="M12 2.5v2.6M12 18.9v2.6M2.5 12h2.6M18.9 12h2.6M5 5l1.8 1.8M17.2 17.2L19 19M19 5l-1.8 1.8M6.8 17.2L5 19"/></svg>'
+    :'<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg>';}
+  apply(theme);
+  themeBtn.addEventListener('click',function(){
+    theme=theme==='light'?'dark':'light';
+    apply(theme);
+    try{localStorage.setItem('blogTheme',theme);}catch(e){}
+  });
+
+  /* ---- 移动端菜单 ---- */
+  var burger=document.getElementById('burgerBtn');
+  var mob=document.getElementById('mobMenu');
+  burger.addEventListener('click',function(){mob.classList.toggle('open');burger.textContent=mob.classList.contains('open')?'✕':'☰';});
+  mob.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){mob.classList.remove('open');burger.textContent='☰';});});
+
+  /* ---- 回到顶部 ---- */
+  var topLink=document.getElementById('topLink');
+  var onScroll=function(){
+    topLink.classList.toggle('show',window.scrollY>600);
+  };
+  addEventListener('scroll',onScroll,{passive:true});onScroll();
+  topLink.addEventListener('click',function(){scrollTo({top:0,behavior:'smooth'});});
+
+  /* ---- 标签筛选 + 搜索 ---- */
+  var posts=Array.prototype.slice.call(document.querySelectorAll('.post'));
+  var tags=document.querySelectorAll('#tagCloud button');
+  var searchInput=document.getElementById('searchInput');
+  var count=document.getElementById('postCount');
+  var empty=document.getElementById('emptyState');
+  var activeTag='all';
+
+  function updateCount(){count.textContent='· 共 '+posts.filter(function(p){return !p.classList.contains('hide');}).length+' 篇';}
+
+  function applyFilter(){
+    var kw=searchInput.value.trim().toLowerCase();
+    var shown=0;
+    posts.forEach(function(p){
+      var okTag=activeTag==='all'||p.getAttribute('data-tags').indexOf(activeTag)>-1;
+      var okKw=!kw||(p.getAttribute('data-title')+' '+p.textContent).toLowerCase().indexOf(kw)>-1;
+      var show=okTag&&okKw;
+      p.classList.toggle('hide',!show);
+      if(show)shown++;
+    });
+    empty.classList.toggle('show',shown===0);
+    updateCount();
+  }
+
+  tags.forEach(function(btn){
+    btn.addEventListener('click',function(){
+      tags.forEach(function(b){b.classList.remove('active');});
+      btn.classList.add('active');
+      activeTag=btn.getAttribute('data-tag');
+      applyFilter();
+    });
+  });
+  searchInput.addEventListener('input',applyFilter);
+  updateCount();
+
+  /* ---- 文章卡片内小标签(可点击筛选) ---- */
+  document.querySelectorAll('.post .tag').forEach(function(t){
+    t.addEventListener('click',function(){
+      var tag=t.getAttribute('data-tag');
+      tags.forEach(function(b){b.classList.toggle('active',b.getAttribute('data-tag')===tag);});
+      activeTag=tag;
+      applyFilter();
+    });
+  });
+
+  /* ---- 订阅演示 ---- */
+  var subForm=document.getElementById('subForm');
+  subForm.addEventListener('submit',function(e){
+    e.preventDefault();
+    document.getElementById('subNote').classList.add('show');
+    subForm.querySelector('input').value='';
+  });
+})();
+</script>
 </body>
 </html>
